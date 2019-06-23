@@ -1,11 +1,16 @@
 {
   "name": "express-middleware-router",
   "version": "1.0.0",
+  "scripts": {
+    "build": "rm -rf dist && cp -r node_modules/express-middleware-server/dist . && yarn run tsc",
+    "start": "node dist/server.js"
+  },
   "repository": "git@github.com:walk8243/express-middleware-router.git",
   "author": "walk8243 <walk8243@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
+    "express-middleware-server": "https://github.com/walk8243/express-middleware-server.git",
     "typescript": "^3.5.2"
   },
   "devDependencies": {
