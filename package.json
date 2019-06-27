@@ -2,8 +2,8 @@
   "name": "express-middleware-router",
   "version": "1.0.0",
   "scripts": {
-    "build": "rm -rf dist && cp -r node_modules/express-middleware-server/dist . && yarn run tsc",
-    "start": "node dist/server.js"
+    "build": "yarn run tsc",
+    "start": "yarn run server"
   },
   "repository": "git@github.com:walk8243/express-middleware-router.git",
   "author": "walk8243 <walk8243@gmail.com>",

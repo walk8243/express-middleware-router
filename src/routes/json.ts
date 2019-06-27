@@ -8,6 +8,12 @@ router
       key: 'value',
     };
     next();
+  })
+  .get('/yahoo', (req, res, next) => {
+    res.locals.json = {
+      site: 'yahoo',
+    };
+    next();
   });
 
 router

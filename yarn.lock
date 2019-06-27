@@ -157,7 +157,7 @@ etag@~1.8.1:
 
 "express-middleware-server@https://github.com/walk8243/express-middleware-server.git":
   version "1.0.0"
-  resolved "https://github.com/walk8243/express-middleware-server.git#0a8652931c6cfaf7c76008e3e8755edc45fa00cd"
+  resolved "https://github.com/walk8243/express-middleware-server.git#2fd775962c8d832c0c08521b95ce7fce24ea091c"
   dependencies:
     express "^4.17.1"
     typescript "^3.5.2"
