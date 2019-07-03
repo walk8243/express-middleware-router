@@ -1,18 +1,17 @@
 import express from 'express';
+import { Json, Yahoo } from '../controllers/Json';
 
 const router = express.Router();
 
 router
-  .get('/', (req, res, next) => {
-    res.locals.json = {
-      key: 'value',
-    };
+  .get('/', async (req, res, next) => {
+    const json = new Json(req, res);
+    await json.run();
     next();
   })
-  .get('/yahoo', (req, res, next) => {
-    res.locals.json = {
-      site: 'yahoo',
-    };
+  .get('/yahoo', async (req, res, next) => {
+    const yahoo = new Yahoo(req, res);
+    await yahoo.run();
     next();
   });
 

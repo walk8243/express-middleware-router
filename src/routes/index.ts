@@ -1,10 +1,12 @@
 import express from 'express';
+import { Index } from '../controllers/Index';
 
 const router = express.Router();
 
 router
-  .get('/', (req, res, next) => {
-    res.send('index');
+  .get('/', async (req, res, next) => {
+    const index = new Index(req, res);
+    await index.run();
   });
 
 export default router;

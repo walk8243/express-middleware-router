@@ -1,9 +1,21 @@
 import { Base } from "./Base";
 
 export class Json extends Base {
-  run() {
+  private value: string = 'value';
+
+  async run() {
     this.res.locals.json = {
-      key: 'value',
+      key: this.value,
+    };
+  }
+}
+
+export class Yahoo extends Base {
+  private value: string = 'yahoo';
+  
+  async run() {
+    this.res.locals.json = {
+      site: this.value,
     };
   }
 }
