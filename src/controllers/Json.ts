@@ -1,4 +1,5 @@
 import BaseController from './Base';
+import Site from '../models/Site';
 
 export class Json extends BaseController {
   private value: string = 'value';
@@ -11,11 +12,14 @@ export class Json extends BaseController {
 }
 
 export class Yahoo extends BaseController {
-  private value: string = 'yahoo';
-  
   async run() {
+    const site = new Site('yahoo', 'https://yahoo.co.jp');
+
     this.res.locals.json = {
-      site: this.value,
+      site: {
+        name: site.getName(),
+        url: site.getUrl(),
+      },
     };
   }
 }
