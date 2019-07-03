@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 
-export class Base {
+export default class Base {
   constructor(protected req: Request, protected res: Response) {}
 
   async run() {}

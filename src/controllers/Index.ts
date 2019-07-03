@@ -1,6 +1,6 @@
-import { Base } from './Base';
+import BaseController from './Base';
 
-export class Index extends Base {
+export class Index extends BaseController {
   async run() {
     this.res.send('index');
   } 

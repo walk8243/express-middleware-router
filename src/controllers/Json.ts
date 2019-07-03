@@ -1,6 +1,6 @@
-import { Base } from './Base';
+import BaseController from './Base';
 
-export class Json extends Base {
+export class Json extends BaseController {
   private value: string = 'value';
 
   async run() {
@@ -10,7 +10,7 @@ export class Json extends Base {
   }
 }
 
-export class Yahoo extends Base {
+export class Yahoo extends BaseController {
   private value: string = 'yahoo';
   
   async run() {
