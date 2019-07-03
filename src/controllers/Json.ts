@@ -1,12 +1,11 @@
 import BaseController from './Base';
 import Site from '../models/Site';
+import Random from '../utils/Random';
 
 export class Json extends BaseController {
-  private value: string = 'value';
-
   async run() {
     this.res.locals.json = {
-      key: this.value,
+      key: Random.getString(10),
     };
   }
 }
