@@ -1,4 +1,4 @@
-import { Base } from "./Base";
+import { Base } from './Base';
 
 export class Json extends Base {
   private value: string = 'value';
