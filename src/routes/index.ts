@@ -1,12 +1,10 @@
 import express from 'express';
+import baseRoutingFunction from './base';
 import { Index } from '../controllers/Index';
 
 const router = express.Router();
 
 router
-  .get('/', async (req, res, next) => {
-    const index = new Index(req, res);
-    await index.run();
-  });
+  .get('/', baseRoutingFunction(Index, false));
 
 export default router;
