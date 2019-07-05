@@ -24,7 +24,6 @@ describe('routes/index', () => {
   describe('Routerの中身を確認', () => {
     it('正常系', () => {
       require('../../src/routes/index');
-      console.log(stubCreateRoutingFunction.callCount);
       assert.ok(stubCreateRoutingFunction.calledOnce);
       assert.deepStrictEqual(stubCreateRoutingFunction.firstCall.args, [ Index, false ]);
     });

@@ -15,10 +15,6 @@ describe('routes/json', () => {
   beforeEach(() => {
     stubCreateRoutingFunction.reset();
     stubCreateRoutingFunction.callsFake(fake());
-    stubCreateRoutingFunction
-      .withArgs(Json).returns(fake((req: Request, res: Response, next: NextFunction) => { res.end('fake json'); }))
-      .withArgs(Yahoo).returns(fake((req: Request, res: Response, next: NextFunction) => { res.end('fake yahoo'); }));
-    stubCreateRoutingFunction.returns(fake((req: Request, res: Response, next: NextFunction) => { res.end('fake'); }));
     delete require.cache[routesJsonPath];
   });
   after(() => {
@@ -26,6 +22,9 @@ describe('routes/json', () => {
   });
 
   describe('Routerの中身を確認', () => {
+    beforeEach(() => {
+      stubCreateRoutingFunction.returns(fake((req: Request, res: Response, next: NextFunction) => { res.end('fake'); }));
+    });
     it('正常系', () => {
       require('../../src/routes/json');
       assert.ok(stubCreateRoutingFunction.calledTwice);
@@ -36,12 +35,16 @@ describe('routes/json', () => {
   describe('Routingを確認', () => {
     let app!: express.Application;
     beforeEach(() => {
+      stubCreateRoutingFunction
+        .withArgs(Json).returns(fake((req: Request, res: Response, next: NextFunction) => { res.end('fake json'); }))
+        .withArgs(Yahoo).returns(fake((req: Request, res: Response, next: NextFunction) => { res.end('fake yahoo'); }));
+      stubCreateRoutingFunction.returns(fake((req: Request, res: Response, next: NextFunction) => { res.end('fake'); }));
+
       app = express();
       const router = require('../../src/routes/json').default;
       app.use(router);
     });
     it('/', (done) => {
-      assert.ok(stubCreateRoutingFunction.calledTwice);
       request(app)
         .get('/')
         .expect(200)
@@ -51,8 +54,6 @@ describe('routes/json', () => {
         });
     });
     it('/yahoo', (done) => {
-      assert.ok(stubCreateRoutingFunction.calledTwice);
-      assert.deepStrictEqual(stubCreateRoutingFunction.secondCall.args, [ Yahoo ]);
       request(app)
         .get('/yahoo')
         .expect(200)
@@ -67,6 +68,37 @@ describe('routes/json', () => {
         .expect(200)
         .end((err, res) => {
           assert.deepEqual(res.body, {});
+          done();
+        });
+    });
+  });
+  describe('createRoutingFunctionでnextが動く場合の挙動', () => {
+    let app!: express.Application;
+    beforeEach(() => {
+      stubCreateRoutingFunction
+        .withArgs(Json).returns(fake((req: Request, res: Response, next: NextFunction) => { res.locals.json = { site: 'fake json' }; next(); }))
+        .withArgs(Yahoo).returns(fake((req: Request, res: Response, next: NextFunction) => { res.locals.json = { site: 'fake yahoo' }; next(); }));
+      stubCreateRoutingFunction.returns(fake((req: Request, res: Response, next: NextFunction) => { res.locals.json = { site: 'fake' }; next(); }));
+
+      app = express();
+      const router = require('../../src/routes/json').default;
+      app.use(router);
+    });
+    it('/', (done) => {
+      request(app)
+        .get('/')
+        .expect(200)
+        .end((err, res) => {
+          assert.deepEqual(res.body, { site: 'fake json' });
+          done();
+        });
+    });
+    it('/yahoo', (done) => {
+      request(app)
+        .get('/yahoo')
+        .expect(200)
+        .end((err, res) => {
+          assert.deepEqual(res.body, { site: 'fake yahoo' });
           done();
         });
     });
