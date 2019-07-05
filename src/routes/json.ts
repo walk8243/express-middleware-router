@@ -1,12 +1,12 @@
 import express from 'express';
-import baseRoutingFunction from './base';
+import createRoutingFunction from './base';
 import { Json, Yahoo } from '../controllers/Json';
 
 const router = express.Router();
 
 router
-  .get('/', baseRoutingFunction(Json))
-  .get('/yahoo', baseRoutingFunction(Yahoo));
+  .get('/', createRoutingFunction(Json))
+  .get('/yahoo', createRoutingFunction(Yahoo));
 
 router
   .use((req, res) => {
