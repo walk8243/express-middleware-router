@@ -40,7 +40,7 @@ describe('router', () => {
     });
   });
 
-  describe.only('Import', () => {
+  describe('Import', () => {
     let app: express.Application;
     const fakeRoute = fake((req: express.Request, res: express.Response, next: express.NextFunction) => { res.end('fakeRoute'); });
     before(() => {
