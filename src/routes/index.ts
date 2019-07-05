@@ -1,10 +1,10 @@
 import express from 'express';
-import baseRoutingFunction from './base';
+import createRoutingFunction from './base';
 import { Index } from '../controllers/Index';
 
 const router = express.Router();
 
 router
-  .get('/', baseRoutingFunction(Index, false));
+  .get('/', createRoutingFunction(Index, false));
 
 export default router;
